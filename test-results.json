@@ -1,0 +1,388 @@
+{
+  "browser": "144.0.7559.96",
+  "code": {
+    "cases": [
+      {
+        "id": "T1",
+        "description": "Free interval",
+        "start": "2026-12-01T08:30",
+        "duration": "60",
+        "blocked": false,
+        "expected": "AVAILABLE",
+        "observed": {
+          "available": true,
+          "reason": "AVAILABLE",
+          "message": "Available: No conflicting bookings found.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T2",
+        "description": "Overlap",
+        "start": "2026-12-01T10:30",
+        "duration": "30",
+        "blocked": false,
+        "expected": "BOOKING_OVERLAP",
+        "observed": {
+          "available": false,
+          "reason": "BOOKING_OVERLAP",
+          "message": "Unavailable: Conflicts with booking B001.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T3",
+        "description": "Blocked",
+        "start": "2026-12-01T09:00",
+        "duration": "60",
+        "blocked": true,
+        "expected": "ROOM_BLOCKED",
+        "observed": {
+          "available": false,
+          "reason": "ROOM_BLOCKED",
+          "message": "Unavailable: The room is blocked.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T4",
+        "description": "Zero duration",
+        "start": "2026-12-01T09:00",
+        "duration": "0",
+        "blocked": false,
+        "expected": "INVALID_DURATION",
+        "observed": {
+          "available": false,
+          "reason": "INVALID_DURATION",
+          "message": "Validation error: Duration must be greater than 0 and at most 120 minutes.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T5",
+        "description": "121 minutes",
+        "start": "2026-12-01T09:00",
+        "duration": "121",
+        "blocked": false,
+        "expected": "INVALID_DURATION",
+        "observed": {
+          "available": false,
+          "reason": "INVALID_DURATION",
+          "message": "Validation error: Duration must be greater than 0 and at most 120 minutes.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T6",
+        "description": "Past start",
+        "start": "2026-11-01T09:00",
+        "duration": "60",
+        "blocked": false,
+        "expected": "PAST_START",
+        "observed": {
+          "available": false,
+          "reason": "PAST_START",
+          "message": "Validation error: Start time must be in the future.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T7",
+        "description": "Adjacent interval",
+        "start": "2026-12-01T11:00",
+        "duration": "60",
+        "blocked": false,
+        "expected": "AVAILABLE",
+        "observed": {
+          "available": true,
+          "reason": "AVAILABLE",
+          "message": "Available: No conflicting bookings found.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T8",
+        "description": "Booking data unchanged after checks",
+        "expected": "UNCHANGED",
+        "observed": {
+          "reason": "UNCHANGED",
+          "before": "B001\t2026-12-01\t10:00\t11:00\nB002\t2026-12-01\t12:00\t13:30\nB003\t2026-12-01\t15:00\t16:00",
+          "after": "B001\t2026-12-01\t10:00\t11:00\nB002\t2026-12-01\t12:00\t13:30\nB003\t2026-12-01\t15:00\t16:00"
+        },
+        "passed": true
+      }
+    ],
+    "security": [
+      {
+        "id": "S1",
+        "description": "Plain text",
+        "input": "hello",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "S2",
+        "description": "HTML-like input",
+        "input": "<b>TEST</b>",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "S3",
+        "description": "SQL-like input",
+        "input": "1' OR '1'='1",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "S4",
+        "description": "Empty duration",
+        "input": "",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "S5",
+        "description": "Empty date",
+        "input": "60",
+        "expected": "INVALID_DATE",
+        "observed": "INVALID_DATE",
+        "passed": true
+      }
+    ],
+    "mobile_passed": true,
+    "page_errors": [],
+    "external_requests": [],
+    "test_seconds": 1.79
+  },
+  "simulation": {
+    "cases": [
+      {
+        "id": "T1",
+        "description": "Free interval",
+        "start": "2026-12-01T08:30",
+        "duration": "60",
+        "blocked": false,
+        "expected": "AVAILABLE",
+        "observed": {
+          "available": true,
+          "reason": "AVAILABLE",
+          "message": "Available: No conflicting bookings found.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T2",
+        "description": "Overlap",
+        "start": "2026-12-01T10:30",
+        "duration": "30",
+        "blocked": false,
+        "expected": "BOOKING_OVERLAP",
+        "observed": {
+          "available": false,
+          "reason": "BOOKING_OVERLAP",
+          "message": "Unavailable: Conflicts with booking B001.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T3",
+        "description": "Blocked",
+        "start": "2026-12-01T09:00",
+        "duration": "60",
+        "blocked": true,
+        "expected": "ROOM_BLOCKED",
+        "observed": {
+          "available": false,
+          "reason": "ROOM_BLOCKED",
+          "message": "Unavailable: The room is blocked.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T4",
+        "description": "Zero duration",
+        "start": "2026-12-01T09:00",
+        "duration": "0",
+        "blocked": false,
+        "expected": "INVALID_DURATION",
+        "observed": {
+          "available": false,
+          "reason": "INVALID_DURATION",
+          "message": "Validation error: Duration must be greater than 0 and at most 120 minutes.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T5",
+        "description": "121 minutes",
+        "start": "2026-12-01T09:00",
+        "duration": "121",
+        "blocked": false,
+        "expected": "INVALID_DURATION",
+        "observed": {
+          "available": false,
+          "reason": "INVALID_DURATION",
+          "message": "Validation error: Duration must be greater than 0 and at most 120 minutes.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T6",
+        "description": "Past start",
+        "start": "2026-11-01T09:00",
+        "duration": "60",
+        "blocked": false,
+        "expected": "PAST_START",
+        "observed": {
+          "available": false,
+          "reason": "PAST_START",
+          "message": "Validation error: Start time must be in the future.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T7",
+        "description": "Adjacent interval",
+        "start": "2026-12-01T11:00",
+        "duration": "60",
+        "blocked": false,
+        "expected": "AVAILABLE",
+        "observed": {
+          "available": true,
+          "reason": "AVAILABLE",
+          "message": "Available: No conflicting bookings found.",
+          "bookingsUnchanged": true
+        },
+        "passed": true
+      },
+      {
+        "id": "T8",
+        "description": "Booking data unchanged after checks",
+        "expected": "UNCHANGED",
+        "observed": {
+          "reason": "UNCHANGED",
+          "before": "B001\t2026-12-01\t10:00\t11:00\nB002\t2026-12-01\t12:00\t13:30\nB003\t2026-12-01\t15:00\t16:00",
+          "after": "B001\t2026-12-01\t10:00\t11:00\nB002\t2026-12-01\t12:00\t13:30\nB003\t2026-12-01\t15:00\t16:00"
+        },
+        "passed": true
+      }
+    ],
+    "security": [
+      {
+        "id": "S1",
+        "description": "Plain text",
+        "input": "hello",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "S2",
+        "description": "HTML-like input",
+        "input": "<b>TEST</b>",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "S3",
+        "description": "SQL-like input",
+        "input": "1' OR '1'='1",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "S4",
+        "description": "Empty duration",
+        "input": "",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "S5",
+        "description": "Empty date",
+        "input": "60",
+        "expected": "INVALID_DATE",
+        "observed": "INVALID_DATE",
+        "passed": true
+      }
+    ],
+    "mobile_passed": true,
+    "page_errors": [],
+    "external_requests": [],
+    "test_seconds": 1.44
+  },
+  "appsmith_mock": {
+    "cases": [
+      {
+        "id": "T1",
+        "expected": "AVAILABLE",
+        "observed": "AVAILABLE",
+        "passed": true
+      },
+      {
+        "id": "T2",
+        "expected": "BOOKING_OVERLAP",
+        "observed": "BOOKING_OVERLAP",
+        "passed": true
+      },
+      {
+        "id": "T3",
+        "expected": "ROOM_BLOCKED",
+        "observed": "ROOM_BLOCKED",
+        "passed": true
+      },
+      {
+        "id": "T4",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "T5",
+        "expected": "INVALID_DURATION",
+        "observed": "INVALID_DURATION",
+        "passed": true
+      },
+      {
+        "id": "T6",
+        "expected": "PAST_START",
+        "observed": "PAST_START",
+        "passed": true
+      },
+      {
+        "id": "T7",
+        "expected": "AVAILABLE",
+        "observed": "AVAILABLE",
+        "passed": true
+      },
+      {
+        "id": "T8",
+        "expected": "UNCHANGED",
+        "observed": "UNCHANGED",
+        "passed": true
+      }
+    ],
+    "note": "Plain Chromium JS with mocked platform API. Not an Appsmith runtime test."
+  }
+}
